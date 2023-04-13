@@ -7,7 +7,7 @@ import re # El método re permite trabajar con expresiones regulares
 import csv
 
 #CÓDIGO
-class Correo_Electronicos:
+class Correo_Electronico:
     def __init__(self, correo, name):
         self.correo = correo
         self.name = name
@@ -20,24 +20,27 @@ class Correo_Electronicos:
 
 def get_from_csv(filename):
     lista = []
-    with open(filename, "r") as file:
+    with open(filename, newline='') as file:
         reader = csv.reader(file)
         for row in reader: # CONVERTIR EN CLASES
-            correos = Correo_Electronicos(row[0], row[1])
+            correos = Correo_Electronico(row[0], row[1])
             lista.append(correos)
     return lista
 
 def main():
-    get_from_csv("data/correos_disponibles.csv")
+    lista = get_from_csv("data/correos_disponibles.csv")
     print("Bienvenido al sitio web")
     try:
-        correo = input("Introduzca su correo electrónico: ")
+        correo = input("--> ")
     except re.search(". * @. * \ .. *", correo):
         print("Una dirección de correo electrónico debe tener el formato xxx@xxx.xx")
     else:
-        print("El correo electrónico es correcto")
-
-
+        for i in lista:
+            if correo == i.get_correo():
+                print(f"Bienvenido {i.get_name()}")
+                break
+        else:
+            print("Cuenta bloqueada a causa de un ataque")
 
 
 if __name__ == '__main__':
