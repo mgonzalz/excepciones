@@ -64,8 +64,10 @@ def main():
             check_correo(correo, lista)
         except Clear as c:
             c.get_error()
+            main()
         except FormatoMalo:
             print("Una dirección de correo electrónico debe tener el formato xxx@xxx.xx")
+            main()
         except CiberAtaque:
             print("Cuenta bloqueada a causa de un ataque")
             exit()
