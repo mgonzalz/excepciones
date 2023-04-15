@@ -1,12 +1,4 @@
-'''
-Enunciado: escriba un programa que simule la conexión de un usuario a un sitio web para el que ya se ha
-registrado, solo con su dirección de correo electrónico (la gestión de una contraseña está fuera del
-alcance de esta sección). Este programa debe ofrecer la posibilidad al usuario de introducir una dirección
-de correo electrónico, y mostrará diferentes mensajes de error en función de la cadena introducida. El
-programa debe continuar si el correo electrónico indicado tiene un formato incorrecto y finalizar si no se
-reconoce el correo electrónico, ya que se podría tratar de un ciberataque. Importante: el método que
-analiza la cadena de caracteres no debe devolver ningún valor.
-'''
+
 
 import re # El método re permite trabajar con expresiones regulares
 import csv
@@ -81,33 +73,3 @@ def main():
         if correo == i.get_correo():
             print(f"¡Bienvenido {i.get_name()}!")
             break
-
-
-
-'''
-OUTPUT:
-        PRIMER EJEMPLO:
-Bienvenido al sitio web
-Introduzca su dirección de correo electrónico
--> 
-'' es una entrada incorrecta. Introduzca una dirección de correo
-
-        SEGUNDO EJEMPLO:
-Bienvenido al sitio web
-Introduzca su dirección de correo electrónico
--> t
-Una dirección de correo electrónico debe tener el formato xxx@xxx.xx
-
-        TERCER EJEMPLO:
-Bienvenido al sitio web
-Introduzca su dirección de correo electrónico
--> t@t.t 
-Cuenta bloqueada a causa de un ataque
-
-        CUARTO EJEMPLO:
-Bienvenido al sitio web
-Introduzca su dirección de correo electrónico
--> vicente@eni.es
-¡Bienvenido  Vicente!
-
-'''

@@ -1,0 +1,23 @@
+        PRIMER EJEMPLO:
+Bienvenido al sitio web
+Introduzca su dirección de correo electrónico
+-> 
+'' es una entrada incorrecta. Introduzca una dirección de correo
+
+        SEGUNDO EJEMPLO:
+Bienvenido al sitio web
+Introduzca su dirección de correo electrónico
+-> t
+Una dirección de correo electrónico debe tener el formato xxx@xxx.xx
+
+        TERCER EJEMPLO:
+Bienvenido al sitio web
+Introduzca su dirección de correo electrónico
+-> t@t.t 
+Cuenta bloqueada a causa de un ataque
+
+        CUARTO EJEMPLO:
+Bienvenido al sitio web
+Introduzca su dirección de correo electrónico
+-> vicente@eni.es
+¡Bienvenido  Vicente!
