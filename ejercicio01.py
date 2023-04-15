@@ -23,6 +23,17 @@ class Correo_Electronico:
     def __str__(self):
         return self.name + " " + self.correo
 
+#EXCEPCIONES
+class FormatoMalo(Exception): pass
+class CiberAtaque(Exception): pass
+class Clear(Exception):
+    def __init__(self, message):
+        self.message = message
+    def get_error(self):
+        return "'{}' es una entrada incorrecta. Introduzca una dirección de correo".format(self.message)
+
+
+#CSV
 def get_from_csv(filename):
     if not isinstance(filename, str):
         raise TypeError("El archivo debe ser una cadena de caracteres")
@@ -37,21 +48,34 @@ def get_from_csv(filename):
         print("Error de sintaxis")
     return lista
 
-def main():
+
+#FUNCIONES
+
+def check_correo(correo, lista):
+    if correo is None or len(correo) == 0: #CORREO VACIO
+        raise Clear(correo)
+    if re.search(".*@.*\..*", correo) is None: #CORREO MALO
+        raise FormatoMalo
+    if not correo in [i.get_correo() for i in lista]: #CORREO NO ENCONTRADO EN LA LISTA
+        raise CiberAtaque
+
+if __name__ == "__main__":
     lista = get_from_csv("data/correos_disponibles.csv")
     print("Bienvenido al sitio web" + "\n" + "Introduzca su dirección de correo electrónico")
-    try:
-        correo = input("--> ")
-        if not re.search(". * @. * \ .. *", correo):
-            raise ValueError
-    except ValueError:
-        print("El correo no tiene el formato correcto")
+    correo =input("->")
+    if not isinstance(correo, str):
+        raise TypeError("El correo debe ser una cadena de caracteres")
     else:
-        for i in lista:
-            if correo == i.get_correo():
-                print(f"Bienvenido {i.get_name()}")
-                break
-
-
-if __name__ == '__main__':
-    main()
+        try:
+            check_correo(correo, lista)
+        except Clear as c:
+            c.get_error()
+        except FormatoMalo:
+            print("Una dirección de correo electrónico debe tener el formato xxx@xxx.xx")
+        except CiberAtaque:
+            print("Cuenta bloqueada a causa de un ataque")
+            exit()
+    for i in lista:
+        if correo == i.get_correo():
+            print("Bienvenido " + i.get_name())
+            break
