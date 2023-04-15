@@ -11,7 +11,7 @@ analiza la cadena de caracteres no debe devolver ningún valor.
 import re # El método re permite trabajar con expresiones regulares
 import csv
 
-#CÓDIGO
+#CLASES
 class Correo_Electronico:
     def __init__(self, correo, name):
         self.correo = str(correo)
@@ -30,7 +30,8 @@ class Clear(Exception):
     def __init__(self, message):
         self.message = message
     def get_error(self):
-        return "'{}' es una entrada incorrecta. Introduzca una dirección de correo".format(self.message)
+        print("'{}' es una entrada incorrecta. Introduzca una dirección de correo".format(self.message))
+
 
 
 #CSV
@@ -52,17 +53,18 @@ def get_from_csv(filename):
 #FUNCIONES
 
 def check_correo(correo, lista):
-    if correo is None or len(correo) == 0: #CORREO VACIO
+    if len(correo) == 0: #CORREO VACIO
         raise Clear(correo)
-    if re.search(".*@.*\..*", correo) is None: #CORREO MALO
+    elif re.search(".*@.*\..*", correo) is None: #CORREO MALO
         raise FormatoMalo
     if not correo in [i.get_correo() for i in lista]: #CORREO NO ENCONTRADO EN LA LISTA
         raise CiberAtaque
 
-if __name__ == "__main__":
+
+def main():
     lista = get_from_csv("data/correos_disponibles.csv")
     print("Bienvenido al sitio web" + "\n" + "Introduzca su dirección de correo electrónico")
-    correo =input("->")
+    correo = input("-> ")
     if not isinstance(correo, str):
         raise TypeError("El correo debe ser una cadena de caracteres")
     else:
@@ -77,5 +79,35 @@ if __name__ == "__main__":
             exit()
     for i in lista:
         if correo == i.get_correo():
-            print("Bienvenido " + i.get_name())
+            print(f"¡Bienvenido {i.get_name()}!")
             break
+
+
+
+'''
+OUTPUT:
+        PRIMER EJEMPLO:
+Bienvenido al sitio web
+Introduzca su dirección de correo electrónico
+-> 
+'' es una entrada incorrecta. Introduzca una dirección de correo
+
+        SEGUNDO EJEMPLO:
+Bienvenido al sitio web
+Introduzca su dirección de correo electrónico
+-> t
+Una dirección de correo electrónico debe tener el formato xxx@xxx.xx
+
+        TERCER EJEMPLO:
+Bienvenido al sitio web
+Introduzca su dirección de correo electrónico
+-> t@t.t 
+Cuenta bloqueada a causa de un ataque
+
+        CUARTO EJEMPLO:
+Bienvenido al sitio web
+Introduzca su dirección de correo electrónico
+-> vicente@eni.es
+¡Bienvenido  Vicente!
+
+'''
